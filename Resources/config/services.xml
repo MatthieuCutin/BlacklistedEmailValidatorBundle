@@ -20,6 +20,7 @@
                 <argument>spoofmail.de</argument>
                 <argument>trashmail.ws</argument>
             </argument>
+            <argument type="service" id="doctrine.orm.entity_manager" />
 
             <tag name="validator.constraint_validator" alias="blacklisted_email_validator"/>
         </service>

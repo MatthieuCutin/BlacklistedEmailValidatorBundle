@@ -10,6 +10,7 @@
 
 namespace Xynnn\BlacklistedEmailValidatorBundle\Validator\Constraints;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\EmailValidator;
@@ -33,10 +34,11 @@ class BlacklistedEmailValidator extends EmailValidator
      * @param bool  $strict
      * @param array $hosts
      */
-    public function __construct($strict = false, $hosts = [])
+    public function __construct($strict = false, $hosts = [], $em = null)
     {
         parent::__construct($strict);
         $this->blacklist = $hosts;
+        $this->em = $em;
     }
 
     /**
@@ -50,6 +52,13 @@ class BlacklistedEmailValidator extends EmailValidator
         if (in_array($host, $this->blacklist)) {
             $this->context->addViolation($constraint->message, [
                 '%host%' => $host,
+            ]);
+        }
+
+        $invalidHost = $this->em->getRepository('CommonBundle:InvalidEmail')->findOneByDomain($host);
+        if (null != $invalidHost) {
+            $this->context->addViolation($constraint->message, [
+                '%host%' => $invalidHost->getDomain(),
             ]);
         }
     }
