@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\Email;
  */
 class BlacklistedEmail extends Email
 {
-    public $message = 'L\'adresse email renseignées est incorrecte';
+    public $message = 'L\'adresse email renseignée est incorrecte';
 
     /**
      * {@inheritdoc}
