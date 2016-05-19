@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\Email;
  */
 class BlacklistedEmail extends Email
 {
-    public $message = 'Le serveur d\'envoi de mail "%host%" n\'est pas autorisé. Veuillez en choisir un autre.';
+    public $message = 'L\'adresse email renseignées est incorrecte';
 
     /**
      * {@inheritdoc}
